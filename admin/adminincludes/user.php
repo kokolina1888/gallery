@@ -18,14 +18,6 @@ class User {
 
 		$the_result_array = self::find_this_query("SELECT * FROM `users` WHERE id=$user_id");
 		
-		/*if(!empty($the_result_array)) {
-
-			$first_item = array_shift($the_result_array);
-			return $first_item;
-		} else {
-			return 'false';
-		}*/
-
 		return !empty($the_result_array) ? array_shift($the_result_array) : false;
 		return $found_user;
 	}
@@ -40,6 +32,25 @@ class User {
 		}
 
 		return $the_object_array;
+	}
+
+	public static function verify_user($username, $password) {
+		global $database;
+
+
+//cleaning the username and password
+		$username = $database->escape_string($username);
+		$password = $database->escape_string($password);
+
+		$sql = "SELECT * FROM users WHERE ";
+		$sql .= "username = '{$username}' ";
+		$sql .= "AND password = '{$password}' ";
+		$sql .= "LIMIT 1";
+
+		$the_result_array = self::find_this_query($sql);
+		//array_shift - to get the first result
+		return !empty($the_result_array) ? array_shift($the_result_array) : false;
+
 	}
 
 	public static function instantiation($the_record) {
