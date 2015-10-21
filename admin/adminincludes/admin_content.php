@@ -8,38 +8,19 @@
                 <small>Subheading</small>
             </h1>
 
-            <?php
+           <?php 
+/*$user = new User();
+$user->username = "example_username2";
+$user->password = "123";
+$user->first_name = "FirstName2";
+$user->last_name = "LastName2";
+$user->create();*/
 
+$user = User::find_user_by_id(1);
+$user->last_name = "Williams";
+$user->update();
 
-                   //$result_set = User::find_all_users();                   
-
-                    //while($row = mysqli_fetch_array($result_set)) {
-
-                      //echo $row['username'] . '<br>';
-                    //}
-           /* $user_found = User::find_user_by_id(3);   
-
-            $user = User::instantiation($user_found);
-
-            echo $user->username;        
-
-            echo "<br>";
-
-                   // echo $user_found['username'];*/
-           /* $users = User::find_all_users();
-
-            foreach ($users as $user) {
-                echo $user->username . '/' . $user->id . '<br>';
-            }*/
-        /*echo "<pre>";            
-        var_dump($users);
-        echo "</pre>";*/
-
-        $user_found = User::find_user_by_id(3);
-
-        echo $user_found->username;
-
-?>
+           ?>
 
 <ol class="breadcrumb">
     <li class="active">
