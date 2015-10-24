@@ -1,8 +1,9 @@
 <?php 
 //D:\xampp\htdocs\UDEMY\gallery
+//D:\xampp\htdocs\UDEMY\gallery\admin\images
 
 defined('DS') ? null : define('DS', DIRECTORY_SEPARATOR);
-define('SITE_ROOT', 'D' . DS . 'xampp' . DS . 'htdocs' . DS . 'UDEMY' . DS . 'gallery');
+define('SITE_ROOT', 'D:' . DS . 'xampp' . DS . 'htdocs' . DS . 'UDEMY' . DS . 'gallery');
 defined('INCLUDES_PATH') ? null : define('INCLUDES_PATH', SITE_ROOT . DS . 'admin' . DS . 'adminincludes');
 
 require_once('function.php');

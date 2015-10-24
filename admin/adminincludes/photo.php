@@ -34,19 +34,62 @@ UPLOAD_ERR_EXTENSION 	=> " A PHP extension stopped the file upload."
 			$this->errors[] = 'there was no file uploads here';
 			return false;
 		} elseif($file['error'] !=0) {
-			$this->errors[] = $this->upload_errors_array[$file['erro']];
+			$this->errors[] = $this->upload_errors_array[$file['error']];
 			return false;
 		} else {
-			
+
 		$this->filename = basename($file['name']);
-		$this->tmp_path = basename($file['tmp_name']);
-		$this->type = basename($file['type']);
-		$this->size = basename($file['size']);
+		$this->tmp_path = $file['tmp_name'];
+		$this->type = $file['type'];
+		$this->size = $file['size'];
 		}
 
 
 
 	}//end set_file
+
+
+	public function picture_path() {
+
+		//here DS instead of /, but it`s not working
+
+		return $this->upload_directory. "/" .$this->filename;
+
+	}//end of picture_path
+
+	public function save() {
+		if($this->photo_id) {
+			$this->photo->update();
+
+		} else {
+			if(!empty($this->errors)) {
+				return false;
+			}
+			if(empty($this->filename)||empty($this->tmp_path)) {
+				$this->errors[] = "the file was not available";
+				return false;
+			} 
+			$target_path = SITE_ROOT . DS . 'admin' . DS . $this->upload_directory . DS . $this->filename;
+
+			if (file_exists($target_path)) {
+				$this->errors[] = "The file {$this->filename} already exists";
+				return false;
+			}
+
+			if (move_uploaded_file($this->tmp_path, $target_path)) {
+				if($this->create()) {
+					unset($this->tmp_path);
+
+					return true;
+				} else {
+					$this->errors[] = "The file directory probably has no permissions";
+					return false;
+				}
+			}
+
+		
+		}
+	}
 
 } //end photo class
 
