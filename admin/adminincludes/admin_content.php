@@ -31,7 +31,11 @@ $user->save();*/
 foreach ($photos as $photo) {
    echo $photo->title . "<br>";
 }*/
-echo INCLUDES_PATH;
+//echo INCLUDES_PATH;
+//$user = User::find_by_id(8);
+//echo $user->username;
+//$photo = Photo::find_by_id(11);
+//echo $photo->filename;
 
            ?>
 

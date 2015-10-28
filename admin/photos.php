@@ -9,7 +9,7 @@
     <?php if(!$session->is_signed_in()) {redirect("login.php");} ?>
 
     <?php 
-$photos = Photo::find_all();
+    $photos = Photo::find_all();
     ?>
 
     <div id="page-wrapper">
@@ -26,25 +26,33 @@ $photos = Photo::find_all();
                     <div class="class-md-12">
 
                         <table class="table table-hover">
-                            <thead>
-                                <tr>
-                                    <th>Photo</th>
-                                    <th>Id</th>
-                                    <th>Filename</th>
-                                    <th>Title</th>
-                                    <th>Size</th>
-                                </tr>
-                            </thead>
+                         <thead>
+                            <tr>
+                                <th>Photo</th>
+                                <th>Id</th>
+                                <th>Filename</th>
+                                <th>Title</th>
+                                <th>Size</th>
+                            </tr>
+                        </thead>
 
-                            <tbody>
+                        <tbody>
 
                             <?php foreach ($photos as $photo) : ?>
-                                
-                            
+
+
 
                                 <tr>
-                                    <td><img src="<?php echo $photo->picture_path()?>" width="162" alt=""></td>
-                                    <td><?php echo $photo->photo_id; ?></td>
+                                    <td class="admin-photo-thumbnail">
+                                        <img src="<?php echo $photo->picture_path()?>" width="162" alt="">
+                                        <div class="pictures_link">
+                                            <a href="delete_photo.php?id=<?php echo $photo->id?>">Delete</a>
+                                            <a href="edit_photo.php?id=<?php echo $photo->id?>">Edit</a>
+                                            <a href="#">View</a>
+                                        </div>
+
+                                    </td>
+                                    <td><?php echo $photo->id; ?></td>
                                     <td><?php echo $photo->filename; ?></td>
                                     <td><?php echo $photo->title; ?></td>
                                     <td><?php echo $photo->size; ?></td>
@@ -53,18 +61,18 @@ $photos = Photo::find_all();
                             <?php endforeach; ?>
 
 
-                            </tbody>
-                        </table><!--End-of-table-->
-                    </div>
-
+                        </tbody>
+                    </table><!--End-of-table-->
                 </div>
+
             </div>
-            <!-- /.row -->
-
-            
-
-
         </div>
-        <!-- /.container-fluid -->
+        <!-- /.row -->
 
-        <?php include_once ("adminincludes/admin_footer.php"); ?>
+        
+
+
+    </div>
+    <!-- /.container-fluid -->
+
+    <?php include_once ("adminincludes/admin_footer.php"); ?>

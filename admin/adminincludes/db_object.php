@@ -6,15 +6,15 @@ class Db_object {
 	public static function find_all() {
 
 		return static::find_by_query("SELECT * FROM " . static::$db_table . " ");
-	}//end
+	}//end find_all
 
-	public static function find_by_id($user_id) {
+	public static function find_by_id($id) {
 
-		$the_result_array = static::find_by_query("SELECT * FROM " . static::$db_table . " WHERE id=$user_id");
+		$the_result_array = static::find_by_query("SELECT * FROM " . static::$db_table . " WHERE id=$id");
 		
 		return !empty($the_result_array) ? array_shift($the_result_array) : false;
 		
-	}//end
+	}//end find_by_id
 	
 
 	public static function find_by_query($sql) {
@@ -130,10 +130,10 @@ public function update() {
 
 } //end of update method
 
-public function delete() {
+public function delete($var) {
 	global $database;
 
-	$sql = "DELETE FROM users ";
+	$sql = "DELETE FROM $var ";
 	$sql .= "WHERE id = " . $database->escape_string($this->id);
 	$sql .= " LIMIT 1";
 

@@ -1,15 +1,18 @@
-<?php 
+ <?php 
 class Photo extends Db_object {
 
 	protected static $db_table = "photos";
-	protected static $db_table_fields = array('title', 'description', 'filename', 'type', 'size');
+	protected static $db_table_fields = array('id', 'title', 'description', 'filename', 'type', 'size', 'alt', 'caption');
 
-	public $photo_id;
+	public $id;
 	public $title;
 	public $description; 
 	public $filename;
 	public $type;
 	public $size;
+	public $caption;
+	public $alt;
+	
 
 	public $tmp_path;
 	public $upload_directory = "images";
@@ -58,8 +61,8 @@ UPLOAD_ERR_EXTENSION 	=> " A PHP extension stopped the file upload."
 	}//end of picture_path
 
 	public function save() {
-		if($this->photo_id) {
-			$this->photo->update();
+		if($this->id) {
+			$this->update();
 
 		} else {
 			if(!empty($this->errors)) {
@@ -89,7 +92,24 @@ UPLOAD_ERR_EXTENSION 	=> " A PHP extension stopped the file upload."
 
 		
 		}
-	}
+	} //end of save
+
+	public function delete_photo() {
+
+		if($this->delete('photos')) {
+
+			$target_path = SITE_ROOT.DS.'admin'.DS.$this->picture_path();
+
+			//deletes the file
+			return unlink($target_path) ? true : false;
+
+
+
+		} else {
+			return false;
+		}
+
+	}//end of delete_photo
 
 } //end photo class
 
